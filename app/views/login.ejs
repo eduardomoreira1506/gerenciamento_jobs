@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+	<title>Login</title>  
+</head>
+<body>
+	<% if(validacao.length > 0){ %>
+		<ul>
+			<li>Erro!</li>
+			<% for(var i = 0; i < validacao.length; i++){ %>
+				<li><%= validacao[i].msg %></li>
+			<% } %>
+		</ul>
+	<% } %>
+	<form action="/autenticar" method="post">
+		<input type="text" name="email" id="email" placeholder="E-mail" value="<%= email %>">
+		<input type="password" name="senha" id="senha" placeholder="Senha">
+		<button type="submit">Entrar</button>
+	</form>
+	<button type="button"><a href="criar-conta">Criar conta</a></button>
+</body>
+</html>

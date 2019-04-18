@@ -1,0 +1,15 @@
+<% if(projetos.length == 0){ %>
+	<p>Você ainda não tem serviços</p>
+<% } else{ %>
+	<form action="/criarNovoServico" method="post">
+		<select name="idProjeto">
+			<% for(var i = 0; i < projetos.length; i++){ %>
+				<% if(projetos[i].status != 50){ %>
+					<option value="<%= projetos[i].id_projeto %>"><%= projetos[i].nome %></option>
+				<% } %>
+			<% } %>
+		</select>
+		<textarea name="observacao" cols="30" rows="10" required></textarea>
+		<button type="click">Solicitar serviço</button>
+	</form>
+<% } %>

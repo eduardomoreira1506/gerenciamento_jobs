@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+	<title>Painel</title>  
+	<script src="js/usuarios/usuarios.js"></script>
+	<script src="js/usuarios/funcoes.js"></script>
+</head>
+<body>
+	<div>
+		<% if(usuarios.length == 0){ %>
+			<p>Você ainda não tem outros usuários vinculado a sua empresa.</p>
+		<% } else{ %>
+		<ul>
+			<% for(var i = 0; i < usuarios.length; i++){ %>
+			<li>
+				<h2><b><%= usuarios[i].nome %></b></h2>
+				<h3><%= usuarios[i].email %></h3>
+				<% if(usuarios[i].aprovado == 1){ %>
+					<button type="button" onclick="excluirUsuario(<%= usuarios[i].id_usuario %>)">Excluir Usuário</button>
+				<% } else{ %>
+					<button type="button" onclick="aprovarUsuario(<%= usuarios[i].id_usuario %>)">Aprovar usuário</button>
+				<% } %>
+			</li>
+			<% } %>
+		</ul>
+		<% } %>
+	</div>
+</body>
+</html>

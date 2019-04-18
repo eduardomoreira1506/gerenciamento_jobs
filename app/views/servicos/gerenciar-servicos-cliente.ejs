@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+	<title>Gerenciamento de Serviços</title>  
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+	<script src="js/servicos/servicos.js"></script>
+</head>
+<body>
+	<button type="button" id="novoServico">Criar novo serviço</button>
+	<div id="conteudo">
+		<% if(servicos.length == 0){ %>
+			<p>Você ainda não tem serviços</p>
+		<% } else{ %>
+			<ul>
+				<% for(var i = 0; i < servicos.length; i++){ %>
+					<li>
+						<h2><b><%= servicos[i].nomeProjeto %></b></h2>
+						<% 
+							var dia = (servicos[i].data_solicitacao.toString()).substring(8, 10);
+							var mes = retornarMes((servicos[i].data_solicitacao.toString()).substring(4, 7));
+							var ano = (servicos[i].data_solicitacao.toString()).substring(11, 15);
+
+							var horario = (servicos[i].data_solicitacao.toString()).substring(16, 21);
+
+							var stringData = dia + '/' + mes + '/' + ano;
+						%>
+						<h3>Pedido em: <%= stringData %> às <%= horario %></h3>
+						<p><%= servicos[i].observacao %></p>
+						<h3>Status: <% switch(servicos[i].statusServico) {
+									case 0: var status = "Finalizado"; break;
+									case 1: var status = "Na fila"; break;
+									case 3: var status = "Em andamento"; break;
+									case 4: var status = "Aguardando sua aprovação"; break;
+								}
+								%><%= status %></h3>
+						<% if(servicos[i].data_termino != null){ %>
+							<h3>Data término: <%= servicos[i].data_termino %></h3>
+						<% } %>
+						<% if(servicos[i].statusServico == 4){ %>
+							<button>Aprovar</button>
+							<button>Reprovar</button>
+						<% } %>
+					</li>
+				<% } %>
+			</ul>
+		<% } %>
+	</div>
+
+	<% 
+		function retornarMes(stringMes){
+			switch(stringMes){
+				case "Jan": return "01";
+				case "Feb": return "02";
+				case "Mar": return "03";
+				case "Apr": return "04";
+				case "May": return "05";
+				case "Jun": return "06";
+				case "Jul": return "07";
+				case "Aug": return "08";
+				case "Sep": return "09";
+				case "Oct": return "10";
+				case "Nov": return "11";
+				case "Dec": return "12";
+			}
+		}
+	%>
+</body>
+</html>

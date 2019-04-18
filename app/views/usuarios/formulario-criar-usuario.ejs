@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+	<title>Painel</title>  
+	
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+	<script src="js/usuarios/funcoes.js"></script>
+</head>
+<body>
+	<% if(validacao.length > 0){ %>
+		<ul>
+			<li>Erros!</li>
+			<% for(var i = 0; i < validacao.length ; i++){ %>
+				<li><%= validacao[i].msg %></li>
+			<% } %>
+		</ul>
+	<% } %>
+	<form action="/criar-conta" method="post">
+		<input type="text" name="nome" id="nome" placeholder="Nome do usuário" value="<%= usuario.nome %>">
+		<input type="text" name="email" id="email" placeholder="Email de acesso do usuário" value="<%= usuario.email %>">
+		<input type="password" name="senha" id="senha" placeholder="Senha de acesso do usuário">
+		<input type="text" name="chave" id="chave" placeholder="Chave de acesso" value="<%= usuario.chave %>">
+		<button type="submit">Criar</button>
+	</form>
+	<% if(sucesso == 1){ %>
+		<input type="hidden" value="<%= usuario.nome %>" id="nomePessoaCriada">
+		<script>
+			criacaoContaCompleta();
+		</script>
+	<% } %>
+	<% if(sucesso == 2){ %>
+		<script>
+			criacaoPendente();
+		</script>
+	<% } %>
+	<% if(sucesso == 3){ %>
+		<script>
+			chaveInexistente();
+		</script>
+	<% } %>
+	<% if(sucesso == 4){ %>
+		<input type="hidden" value="<%= usuario.nome %>" id="nomePessoaCriada">
+		<input type="hidden" value="<%= usuario.email %>" id="emailPessoaCriada">
+		<script>
+			emailRepetido();
+		</script>
+	<% } %>
+</body>
+</html>
