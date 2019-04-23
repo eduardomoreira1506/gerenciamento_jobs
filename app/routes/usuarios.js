@@ -22,4 +22,20 @@ module.exports = function(application){
 			res.redirect('/');
 		}
 	});
+
+	application.post('/aprovarUsuario', function(req, res){
+		if(req.session.logado == true){			
+			application.app.controllers.usuarios.aprovarUsuario(application, req, res);
+		}else{
+			res.redirect('/');
+		}
+	})
+
+	application.post('/excluirUsuario', function(req, res){
+		if(req.session.logado == true){			
+			application.app.controllers.usuarios.excluirUsuario(application, req, res);
+		}else{
+			res.redirect('/');
+		}
+	})
 }

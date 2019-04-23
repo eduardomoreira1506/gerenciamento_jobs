@@ -2,6 +2,8 @@
 <html lang="pt-BR">
 <head>
 	<title>Painel</title>  
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
 	<script src="js/usuarios/usuarios.js"></script>
 	<script src="js/usuarios/funcoes.js"></script>
 </head>
@@ -13,7 +15,7 @@
 		<ul>
 			<% for(var i = 0; i < usuarios.length; i++){ %>
 			<li>
-				<h2><b><%= usuarios[i].nome %></b></h2>
+				<h2 id="nome_<%= usuarios[i].id_usuario %>"><b><%= usuarios[i].nome %></b></h2>
 				<h3><%= usuarios[i].email %></h3>
 				<% if(usuarios[i].aprovado == 1){ %>
 					<button type="button" onclick="excluirUsuario(<%= usuarios[i].id_usuario %>)">Excluir Usuário</button>

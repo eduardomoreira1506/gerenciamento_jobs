@@ -43,3 +43,55 @@ function emailRepetido(){
 		type: 'error'
 	})
 }
+
+function aprovarUsuario(idUsuario){
+	var nomeUsuario = $('#nome_' + idUsuario + ' b').html();
+
+	Swal.fire({
+		title: `Confirmação!`,
+		text: `Tem certeza que deseja aprovar o usuário ${nomeUsuario}?`,
+		type: 'info',
+		showCloseButton: true,
+  		showCancelButton: true,
+	}).then((result) => {
+		if (result.value) {
+			$.ajax({
+				url: '/aprovarUsuario',
+				method: 'post',
+				dataType:'json',
+				data: {idUsuario: idUsuario},
+				success: function(data){
+					if(data.concluido == 1){
+						window.location.href = "/usuarios";
+					}
+				}
+			});
+		}
+	})
+}
+
+function excluirUsuario(idUsuario){
+	var nomeUsuario = $('#nome_' + idUsuario + ' b').html();
+
+	Swal.fire({
+		title: `Confirmação!`,
+		text: `Tem certeza que deseja excluir o usuário ${nomeUsuario}?`,
+		type: 'info',
+		showCloseButton: true,
+  		showCancelButton: true,
+	}).then((result) => {
+		if (result.value) {
+			$.ajax({
+				url: '/excluirUsuario',
+				method: 'post',
+				dataType:'json',
+				data: {idUsuario: idUsuario},
+				success: function(data){
+					if(data.concluido == 1){
+						window.location.href = "/usuarios";
+					}
+				}
+			});
+		}
+	})
+}
