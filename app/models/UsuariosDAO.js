@@ -8,7 +8,7 @@ UsuariosDAO.prototype.autenticarUsuario = function(usuario, callback){
 	var senhaCriptografada = crypto.createHash('md5').update(usuario.senha).digest('hex');
 	usuario.senha = senhaCriptografada;
 
-	this._connection.query(`SELECT * FROM usuario WHERE email = ? AND senha = ? AND id_cliente IS NOT NULL`, [usuario.email, usuario.senha], callback);
+	this._connection.query(`SELECT * FROM usuario WHERE email = ? AND senha = ?`, [usuario.email, usuario.senha], callback);
 }
 
 UsuariosDAO.prototype.inserirUsuario = function(usuario, callback){

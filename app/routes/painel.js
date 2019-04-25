@@ -14,5 +14,13 @@ module.exports = function(application){
 			res.redirect('/');
 		}
 	});
+
+	application.get('/painelDev', function(req, res){
+		if(req.session.logado == true && req.session.tipo == 1){
+			application.app.controllers.painel.iniciarPainel(application, req, res);
+		}else{
+			res.redirect('/');
+		}
+	});
 }
 

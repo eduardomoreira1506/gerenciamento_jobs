@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 18-Abr-2019 às 20:35
+-- Generation Time: 25-Abr-2019 às 22:53
 -- Versão do servidor: 10.1.37-MariaDB
 -- versão do PHP: 5.6.40
 
@@ -133,11 +133,11 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`id_usuario`, `nome`, `email`, `senha`, `tipo`, `aprovado`, `id_cliente`) VALUES
-(1, 'Eduardo Moreira', 'contato@eduardoem.com.br', '4badaee57fed5610012a296273158f5f', 3, 1, NULL),
-(2, 'Eduardo Moreira', 'contato@eduardoem.com.br', '4badaee57fed5610012a296273158f5f', 3, 1, NULL),
 (3, 'Eduardo Moreira', 'contato@eduardoem.com.br', '4badaee57fed5610012a296273158f5f', 3, 1, 1),
 (4, 'Eduardo Moreira 2', 'dev.eduardomoreira1506@gmail.com', '4badaee57fed5610012a296273158f5f', 3, 1, 3),
-(5, 'Eduardo Moreira 2', 'emdesigneroficial@gmail.com', '4badaee57fed5610012a296273158f5f', 3, 0, 1);
+(5, 'Eduardo Moreira 2', 'emdesigneroficial@gmail.com', '4badaee57fed5610012a296273158f5f', 3, 0, 1),
+(6, 'Eduardo Dev', 'eduardo@onlysat.com', '4badaee57fed5610012a296273158f5f', 1, 1, NULL),
+(7, 'Eduardo', 'teste@teste.com.br', '4badaee57fed5610012a296273158f5f', 3, 0, 1);
 
 --
 -- Indexes for dumped tables
@@ -197,7 +197,7 @@ ALTER TABLE `servico`
 -- AUTO_INCREMENT for table `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Constraints for dumped tables

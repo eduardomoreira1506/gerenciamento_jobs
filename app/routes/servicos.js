@@ -33,4 +33,15 @@ module.exports = function(application){
 	application.get('/servico', function(req, res){
 		application.app.controllers.servicos.servico(application, req, res);
 	});
+
+	application.get('/servicosDev', function(req, res){
+		if(req.session.logado == true){
+			if(req.session.tipo == 1)
+				application.app.controllers.servicos.listarServicosDev(application, req, res);
+			else
+				application.app.controllers.geral.verificacaoTipoUsuarioServico(application, req, res, req.session.tipo);
+		}else{
+			res.redirect('/');
+		}
+	});
 }

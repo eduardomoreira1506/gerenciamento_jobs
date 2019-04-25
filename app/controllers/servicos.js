@@ -50,3 +50,14 @@ module.exports.servico = function(application, req, res){
         }
     });
 }
+
+module.exports.listarServicosDev = function(application, req, res){
+    var connection = application.config.dbConnection();
+    var servicosModel = new application.app.models.ServicosDAO(connection);
+
+    servicosModel.pegarTodosServicos(function(error, result){
+        if(result){
+            res.render('servicos/gerenciar-servicos', {servicos: result, idUsuario : req.session.idUsuario});
+        }
+    });
+}
