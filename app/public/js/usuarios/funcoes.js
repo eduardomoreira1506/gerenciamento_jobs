@@ -70,6 +70,32 @@ function aprovarUsuario(idUsuario){
 	})
 }
 
+function bloquearUsuario(idUsuario){
+	var nomeUsuario = $('#nome_' + idUsuario + ' b').html();
+
+	Swal.fire({
+		title: `Confirmação!`,
+		text: `Tem certeza que deseja bloquear o acesso do usuário ${nomeUsuario}?`,
+		type: 'info',
+		showCloseButton: true,
+  		showCancelButton: true,
+	}).then((result) => {
+		if (result.value) {
+			$.ajax({
+				url: '/bloquearUsuario',
+				method: 'post',
+				dataType:'json',
+				data: {idUsuario: idUsuario},
+				success: function(data){
+					if(data.concluido == 1){
+						window.location.href = "/usuarios";
+					}
+				}
+			});
+		}
+	})
+}
+
 function excluirUsuario(idUsuario){
 	var nomeUsuario = $('#nome_' + idUsuario + ' b').html();
 

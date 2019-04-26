@@ -17,10 +17,12 @@
 			<li>
 				<h2 id="nome_<%= usuarios[i].id_usuario %>"><b><%= usuarios[i].nome %></b></h2>
 				<h3><%= usuarios[i].email %></h3>
-				<% if(usuarios[i].aprovado == 1){ %>
-					<button type="button" onclick="excluirUsuario(<%= usuarios[i].id_usuario %>)">Excluir Usuário</button>
-				<% } else{ %>
+				<button type="button" onclick="excluirUsuario(<%= usuarios[i].id_usuario %>)">Excluir Usuário</button>
+				<% if(usuarios[i].aprovado == 0){ %>
 					<button type="button" onclick="aprovarUsuario(<%= usuarios[i].id_usuario %>)">Aprovar usuário</button>
+				<% } %>
+				<% if(usuarios[i].aprovado == 1){ %>
+					<button type="button" onclick="bloquearUsuario(<%= usuarios[i].id_usuario %>)">Bloquear acesso do usuário</button>
 				<% } %>
 			</li>
 			<% } %>

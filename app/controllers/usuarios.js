@@ -16,6 +16,15 @@ module.exports.aprovarUsuario = function(application, req, res){
     });
 }
 
+module.exports.bloquearUsuario = function(application, req, res){
+    var connection = application.config.dbConnection();
+    var usuariosModel = new application.app.models.UsuariosDAO(connection);
+
+    usuariosModel.bloquearUsuario(req.body.idUsuario, function(error, result){
+        res.send({"concluido":"1"});
+    });
+}
+
 module.exports.excluirUsuario = function(application, req, res){
     var connection = application.config.dbConnection();
     var usuariosModel = new application.app.models.UsuariosDAO(connection);

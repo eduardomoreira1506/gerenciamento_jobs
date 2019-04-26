@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-	<title>Gerenciamento de Serviços</title>  
+	<title>Gerenciamento de Serviços</title> 
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> 
+	<script src="js/servicos/funcoes.js"></script>
 </head>
 <body>
 	<div>
@@ -31,19 +34,23 @@
 							var stringDataTermino = dia + '/' + mes + '/' + ano;
 						%>		
 							<h3>Status: Concluído</h3>
-							<h3>Responsável: <%= servicos[i].nomeResponsavel %></h3>
+							<h3>Realizado por: <%= servicos[i].nomeResponsavel %></h3>
 							<h3>Finalizado em: <%= stringDataTermino %> às <%= horarioTermino %></h3>
 						<% } %>
 						<% if(servicos[i].statusServico == 1){ %>
 							<h3>Status: Aguardando início</h3>
 							<button type="button" onclick="iniciarServico(<%= servicos[i].id_servico %>)">Começar</button>
 						<% } %>
-						<% if(servicos[i].statusServico == 2){ 
+						<% if(servicos[i].statusServico == 3){ 
 							if(idUsuario == servicos[i].id_responsavel){ %>
 								<button type="button" onclick="mandarParaAprovacao(<%= servicos[i].id_servico %>)">Mandar para aprovação</button>
 							<% } %>
-							<h3>Status: Em andamento</h3>;
+							<h3>Status: Em andamento</h3>
 							<h3>Responsável: <%= servicos[i].nomeResponsavel %></h3>
+						<% } %>
+						<% if(servicos[i].statusServico == 4){ %>
+							<h3>Status: Aguardando aprovação do cliente</h3>
+							<h3>Realizado por: <%= servicos[i].nomeResponsavel %></h3>
 						<% } %>
 					</li>
 				<% } %>

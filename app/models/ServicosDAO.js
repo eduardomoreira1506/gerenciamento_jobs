@@ -18,6 +18,10 @@ ServicosDAO.prototype.inserirServico = function(idProjeto, observacao, callback)
 	this._connection.query('INSERT INTO servico (id_projeto, observacao) VALUES (?, ?)', [idProjeto, observacao], callback);
 }
 
+ServicosDAO.prototype.iniciarServico = function(idUsuario, idServico, callback){
+	this._connection.query('UPDATE servico SET id_responsavel = ?, status = 4 WHERE id_servico = ?', [idUsuario, idServico], callback);
+}
+
 module.exports = function(){
 	return ServicosDAO;
 }

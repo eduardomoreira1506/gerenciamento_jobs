@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 25-Abr-2019 às 22:53
+-- Generation Time: 26-Abr-2019 às 02:30
 -- Versão do servidor: 10.1.37-MariaDB
--- versão do PHP: 5.6.40
+-- versão do PHP: 7.3.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -110,7 +110,7 @@ CREATE TABLE `servico` (
 --
 
 INSERT INTO `servico` (`id_servico`, `id_projeto`, `data_solicitacao`, `data_termino`, `observacao`, `status`, `id_responsavel`) VALUES
-(1, 23, '2019-04-12 00:05:14', NULL, 'teste servico\r\n', 1, NULL);
+(1, 23, '2019-04-12 00:05:14', NULL, 'teste servico\r\n', 4, 6);
 
 -- --------------------------------------------------------
 
@@ -135,7 +135,6 @@ CREATE TABLE `usuario` (
 INSERT INTO `usuario` (`id_usuario`, `nome`, `email`, `senha`, `tipo`, `aprovado`, `id_cliente`) VALUES
 (3, 'Eduardo Moreira', 'contato@eduardoem.com.br', '4badaee57fed5610012a296273158f5f', 3, 1, 1),
 (4, 'Eduardo Moreira 2', 'dev.eduardomoreira1506@gmail.com', '4badaee57fed5610012a296273158f5f', 3, 1, 3),
-(5, 'Eduardo Moreira 2', 'emdesigneroficial@gmail.com', '4badaee57fed5610012a296273158f5f', 3, 0, 1),
 (6, 'Eduardo Dev', 'eduardo@onlysat.com', '4badaee57fed5610012a296273158f5f', 1, 1, NULL),
 (7, 'Eduardo', 'teste@teste.com.br', '4badaee57fed5610012a296273158f5f', 3, 0, 1);
 

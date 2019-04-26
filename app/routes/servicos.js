@@ -44,4 +44,15 @@ module.exports = function(application){
 			res.redirect('/');
 		}
 	});
+
+	application.post('/iniciarServico', function(req, res){
+		if(req.session.logado == true){
+			if(req.session.tipo == 1)
+				application.app.controllers.servicos.iniciarServico(application, req, res);
+			else
+				application.app.controllers.geral.verificacaoTipoUsuarioServico(application, req, res, req.session.tipo);
+		}else{
+			res.redirect('/');
+		}
+	})
 }

@@ -31,6 +31,14 @@ module.exports = function(application){
 		}
 	})
 
+	application.post('/bloquearUsuario', function(req, res){
+		if(req.session.logado == true){			
+			application.app.controllers.usuarios.bloquearUsuario(application, req, res);
+		}else{
+			res.redirect('/');
+		}
+	})
+
 	application.post('/excluirUsuario', function(req, res){
 		if(req.session.logado == true){			
 			application.app.controllers.usuarios.excluirUsuario(application, req, res);

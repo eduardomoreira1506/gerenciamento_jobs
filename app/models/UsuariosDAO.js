@@ -30,6 +30,10 @@ UsuariosDAO.prototype.aprovarUsuario = function(idUsuario, callback){
 	this._connection.query('UPDATE usuario SET aprovado = 1 where id_usuario = ?', idUsuario, callback);
 }
 
+UsuariosDAO.prototype.bloquearUsuario = function(idUsuario, callback){
+	this._connection.query('UPDATE usuario SET aprovado = 0 where id_usuario = ?', idUsuario, callback);
+}
+
 UsuariosDAO.prototype.excluirUsuario = function(idUsuario, callback){
 	this._connection.query('DELETE FROM usuario WHERE id_usuario = ?', idUsuario, callback);
 }

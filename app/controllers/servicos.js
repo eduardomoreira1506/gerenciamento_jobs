@@ -61,3 +61,12 @@ module.exports.listarServicosDev = function(application, req, res){
         }
     });
 }
+
+module.exports.iniciarServico = function(application, req, res){
+    var connection = application.config.dbConnection();
+    var servicosModel = new application.app.models.ServicosDAO(connection);
+
+    servicosModel.iniciarServico(req.session.idUsuario, req.body.idServico, function(error, result){
+        res.send({"concluido":"1"});
+    });
+}
