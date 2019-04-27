@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 26-Abr-2019 às 02:30
+-- Generation Time: 27-Abr-2019 às 02:33
 -- Versão do servidor: 10.1.37-MariaDB
 -- versão do PHP: 7.3.1
 
@@ -110,7 +110,8 @@ CREATE TABLE `servico` (
 --
 
 INSERT INTO `servico` (`id_servico`, `id_projeto`, `data_solicitacao`, `data_termino`, `observacao`, `status`, `id_responsavel`) VALUES
-(1, 23, '2019-04-12 00:05:14', NULL, 'teste servico\r\n', 4, 6);
+(4, 23, '2019-04-26 21:24:11', '2019-04-26 21:25:55', 'dsadsada', 0, 6),
+(5, 23, '2019-04-26 21:27:48', '2019-04-26 21:32:24', 'fdsdfsda', 0, 6);
 
 -- --------------------------------------------------------
 
@@ -190,7 +191,7 @@ ALTER TABLE `projeto`
 -- AUTO_INCREMENT for table `servico`
 --
 ALTER TABLE `servico`
-  MODIFY `id_servico` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_servico` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `usuario`

@@ -55,4 +55,26 @@ module.exports = function(application){
 			res.redirect('/');
 		}
 	})
+
+	application.post('/aprovarServico', function(req, res){
+		if(req.session.logado == true){
+			if(req.session.tipo == 3)
+				application.app.controllers.servicos.aprovarServico(application, req, res);
+			else
+				application.app.controllers.geral.verificacaoTipoUsuarioServico(application, req, res, req.session.tipo);
+		}else{
+			res.redirect('/');
+		}
+	})
+
+	application.post('/mandarParaAprovacao', function(req, res){
+		if(req.session.logado == true){
+			if(req.session.tipo == 1)
+				application.app.controllers.servicos.mandarParaAprovacao(application, req, res);
+			else
+				application.app.controllers.geral.verificacaoTipoUsuarioServico(application, req, res, req.session.tipo);
+		}else{
+			res.redirect('/');
+		}
+	})
 }

@@ -5,6 +5,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
 	<script src="js/servicos/servicos.js"></script>
+	<script src="js/servicos/funcoes.js"></script>
 </head>
 <body>
 	<button type="button" id="novoServico">Criar novo serviço</button>
@@ -34,12 +35,18 @@
 									case 4: var status = "Aguardando sua aprovação"; break;
 								}
 								%><%= status %></h3>
-						<% if(servicos[i].data_termino != null){ %>
-							<h3>Data término: <%= servicos[i].data_termino %></h3>
+						<% if(servicos[i].data_termino != null){ 
+							var dia = (servicos[i].data_termino.toString()).substring(8, 10);
+							var mes = retornarMes((servicos[i].data_termino.toString()).substring(4, 7));
+							var ano = (servicos[i].data_termino.toString()).substring(11, 15);
+							var horarioTermino = (servicos[i].data_termino.toString()).substring(16, 21);
+							var stringDataTermino = dia + '/' + mes + '/' + ano;
+						%>
+							<h3>Finalizado em: <%= stringDataTermino %> às <%= horarioTermino %></h3>
 						<% } %>
 						<% if(servicos[i].statusServico == 4){ %>
-							<button>Aprovar</button>
-							<button>Reprovar</button>
+							<button onclick="aprovarServico(<%= servicos[i].id_servico %>)">Aprovar</button>
+							<button onclick="reprovarServico(<%= servicos[i].id_servico %>)">Reprovar</button>
 						<% } %>
 					</li>
 				<% } %>

@@ -19,7 +19,15 @@ ServicosDAO.prototype.inserirServico = function(idProjeto, observacao, callback)
 }
 
 ServicosDAO.prototype.iniciarServico = function(idUsuario, idServico, callback){
-	this._connection.query('UPDATE servico SET id_responsavel = ?, status = 4 WHERE id_servico = ?', [idUsuario, idServico], callback);
+	this._connection.query('UPDATE servico SET id_responsavel = ?, status = 3 WHERE id_servico = ?', [idUsuario, idServico], callback);
+}
+
+ServicosDAO.prototype.aprovarServico = function(idServico, callback){
+	this._connection.query('UPDATE servico SET status = 0, data_termino = NOW() WHERE id_servico = ?', idServico, callback);
+}
+
+ServicosDAO.prototype.editarServico = function(idServico, statusServico, callback){
+	this._connection.query('UPDATE servico SET status = ? WHERE id_servico = ?', [statusServico,idServico], callback);
 }
 
 module.exports = function(){
