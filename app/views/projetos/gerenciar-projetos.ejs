@@ -1,42 +1,55 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-	<title>Painel</title> 
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
-	<script src="js/projetos/projetos.js"></script>
-	<script src="js/projetos/funcoes.js"></script>
-</head>
-<body>
-	<button type="button" id="novoProjeto">Criar novo projeto</button>
-	<div id="conteudo">
-		<% if(projetos.length == 0){ %>
-			<p>Você ainda não tem projetos</p>
-		<% } else{ %>
-			<ul>
-				<% for(var i = 0; i < projetos.length; i++){ %>
-					<% if(projetos[i].status != 50){ %>
-						<li>
-							<h2><b><%= projetos[i].nome %></b> - <%= projetos[i].servicos %> serviços solicitados</h2>
-							<h3>Status do projeto: 
-								<% switch(projetos[i].status) {
-									case 0: var status = "Inativo"; break;
-									case 1: var status = "Ativo"; break;
-								}
-								%><%= status %></h3>
-							<% if(projetos[i].status == 0) { %>
-								<button type="button" onclick="retomarProjeto(<%= projetos[i].id_projeto %>)">Retomar projeto</button>
-							<% } %>	
-							<% if(projetos[i].status == 1) { %>
-								<button type="button" onclick="pausarProjeto(<%= projetos[i].id_projeto %>)">Pausar projeto</button>
-							<% } %>	
-							<button type="button" onclick="excluirProjeto(<%= projetos[i].id_projeto %>)">Excluir projeto</button>
-							<button type="button"><a href="servico?projeto=<%= projetos[i].id_projeto %>">Ver serviços do projeto</a></button>
-						</li>
-					<% } %>
-				<% } %>
-			</ul>
-		<% } %>
-	</div>
+<%- include ../tema/header.ejs %>
+<%- include ../menu/menu.ejs %>
+</div>
+<div class="page-container">
+    <div class="main-content">
+        <div class="section__content section__content--p30">
+            <div class="container-fluid">
+                <div class="row" id="conteudo">
+                    <div class="col-md-12">
+                        <!-- DATA TABLE -->
+                        <h3 class="title-5 m-b-35">Projetos</h3>
+                        <div class="table-data__tool">
+                            <div class="table-responsive table-responsive-data2">
+                                <table class="table table-data2">
+                                    <thead>
+                                        <tr>
+                                            <th>Cliente:</th>
+                                            <th>Projeto:</th>
+                                            <th>Serviços solicitados</th>
+                                            <th>Status do Projeto</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                       <% if(projetos.length > 0){ %>
+                                            <% for(var i = 0; i < projetos.length; i++){ %>
+                                                <% if(projetos[i].status != 50){ %>
+                                                    <tr class="tr-shadow">	
+                                                        <td><a href="cliente?id_cliente=<%= projetos[i].id_cliente %>"><%= projetos[i].nomeCliente %></a></td>
+                                                        <td><a href="projeto?id_projeto=<%= projetos[i].id_projeto %>"><%= projetos[i].nomeProjeto %></a></td>
+                                                        <td><%= projetos[i].servicos %></td>
+                                                        <td class="desc">
+                                                        <% switch(projetos[i].status) {
+															case 0: var status = "Inativo"; break;
+															case 1: var status = "Ativo"; break;
+														}
+														%><%= status %></td>
+                                                    </tr>
+                                                <tr class="spacer"></tr>
+                                            <% } %>
+                                        <% } %>
+                                    <% } %>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="assets/js/projetos/projetos.js"></script>
+<script src="assets/js/projetos/funcoes.js"></script>
 </body>
 </html>

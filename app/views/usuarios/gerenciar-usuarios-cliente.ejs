@@ -1,33 +1,63 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-	<title>Painel</title>  
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
-	<script src="js/usuarios/usuarios.js"></script>
-	<script src="js/usuarios/funcoes.js"></script>
-</head>
-<body>
-	<div>
-		<% if(usuarios.length == 0){ %>
-			<p>Você ainda não tem outros usuários vinculado a sua empresa.</p>
-		<% } else{ %>
-		<ul>
-			<% for(var i = 0; i < usuarios.length; i++){ %>
-			<li>
-				<h2 id="nome_<%= usuarios[i].id_usuario %>"><b><%= usuarios[i].nome %></b></h2>
-				<h3><%= usuarios[i].email %></h3>
-				<button type="button" onclick="excluirUsuario(<%= usuarios[i].id_usuario %>)">Excluir Usuário</button>
-				<% if(usuarios[i].aprovado == 0){ %>
-					<button type="button" onclick="aprovarUsuario(<%= usuarios[i].id_usuario %>)">Aprovar usuário</button>
-				<% } %>
-				<% if(usuarios[i].aprovado == 1){ %>
-					<button type="button" onclick="bloquearUsuario(<%= usuarios[i].id_usuario %>)">Bloquear acesso do usuário</button>
-				<% } %>
-			</li>
-			<% } %>
-		</ul>
-		<% } %>
-	</div>
+<%- include ../tema/header.ejs %>
+<%- include ../menu/menu-admin.ejs %>
+</div>
+<div class="page-container">
+    <div class="main-content">
+        <div class="section__content section__content--p30">
+            <div class="container-fluid">
+                <div class="row" id="conteudo">
+                    <div class="col-md-12">
+                        <!-- DATA TABLE -->
+                        <h3 class="title-5 m-b-35">Usuários</h3>
+                            <div class="table-responsive table-responsive-data2">
+                                <table class="table table-data2">
+                                    <thead>
+                                        <tr>
+                                            <th>Nome</th>
+                                            <th>Email</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% for(var i = 0; i < usuarios.length; i++){ %>
+                                       		<% if(usuarios.length > 0){ %>
+                                       			<% if(usuarios[i].aprovado != 50){ %>
+	                                                <tr class="tr-shadow">	
+	                                                    <td id="nome_<%= usuarios[i].id_usuario %>"><%= usuarios[i].nome %></td>
+	                                                    <td class="desc"><a href="mailto:<%= usuarios[i].email %>"><%= usuarios[i].email %></a></td>
+	                                                    <td>
+	                                                    	<div class="table-data-feature">
+	                                                    		<% if(usuarios[i].aprovado == 0){ %>
+	                                                    			<button class="item" type="button" data-toggle="tooltip" data-placement="top" onclick="aprovarUsuario(<%= usuarios[i].id_usuario %>, <%= usuarios[i].id_cliente %>)" title="Aprovar">
+	                                                    				<i class="fas fa-check"></i>
+	                                                    			</button>
+	                                                    		<% } %>
+	                                                    		<% if(usuarios[i].aprovado == 1){ %>
+	                                                    			<button class="item" type="button" data-toggle="tooltip" data-placement="top" onclick="bloquearUsuario(<%= usuarios[i].id_usuario %>, <%= usuarios[i].id_cliente %>)" title="Reprovar">
+	                                                    				<i class="fas fa-times"></i>
+	                                                    			</button>
+	                                                    		<% } %>
+	                                                           	<button class="item" data-toggle="tooltip" data-placement="top" title="Excluir" onclick="excluirUsuario(<%= usuarios[i].id_usuario %>, <%= usuarios[i].id_cliente %>)">
+	                                                                <i class="zmdi zmdi-delete"></i>
+	                                                            </button>
+	                                                      	</div>
+	                                                    </td>
+	                                                </tr>
+	                                                <tr class="spacer"></tr>
+                                        		<% } %>
+                                        	<% } %>
+                                    	<% } %>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+	<script src="assets/js/usuarios/usuarios.js"></script>
+	<script src="assets/js/usuarios/funcoes.js"></script>
 </body>
 </html>

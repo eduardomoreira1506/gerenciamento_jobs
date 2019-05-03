@@ -33,17 +33,21 @@ module.exports.validacaoCriacao = function(application, req, res){
                     res.render('usuarios/formulario-criar-usuario', {validacao : erros, usuario : usuario, sucesso: 3});
                 }else{
                     var idCliente = result[0].id_cliente;
-                    usuarioInserir = {nome: usuario.nome, email: usuario.email, senha: usuario.senha, tipo: 3, aprovado: aberto, id_cliente: idCliente};
+                    usuarioInserir = {nome: usuario.nome, email: usuario.email, senha: usuario.senha, aprovado: aberto, id_cliente: idCliente};
 
                     usuariosModel.verificarEmail(usuario.email, function(error, result){
                         if(result.length == 0){
-                            if(aberto == 0){
-                                usuariosModel.inserirUsuario(usuarioInserir, function(error, result){
-                                    res.render('usuarios/formulario-criar-usuario', {validacao : erros, usuario : usuario, sucesso: 2});
-                                }); 
-                            }else{
+                            if(aberto == 1){
+                                usuarioInserir.tipo = 3;
+
                                 usuariosModel.inserirUsuario(usuarioInserir, function(error, result){
                                     res.render('usuarios/formulario-criar-usuario', {validacao : erros, usuario : usuario, sucesso: 1});
+                                }); 
+                            }else{
+                                usuarioInserir.tipo = 2;
+
+                                usuariosModel.inserirUsuarioSimples(usuarioInserir, function(error, result){
+                                    res.render('usuarios/formulario-criar-usuario', {validacao : erros, usuario : usuario, sucesso: 2});
                                 }); 
                             }
                         }

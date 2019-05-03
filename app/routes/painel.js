@@ -17,10 +17,18 @@ module.exports = function(application){
 
 	application.get('/painelDev', function(req, res){
 		if(req.session.logado == true && req.session.tipo == 1){
-			application.app.controllers.painel.iniciarPainel(application, req, res);
+			application.app.controllers.painel.iniciarPainelDev(application, req, res);
 		}else{
 			res.redirect('/');
 		}
 	});
+
+	application.get('/painelCliente', function(req, res){
+		if(req.session.logado == true && req.session.tipo == 2){
+			application.app.controllers.painel.iniciarPainelCliente(application, req, res);
+		}else{
+			res.redirect('/');
+		}
+	})
 }
 

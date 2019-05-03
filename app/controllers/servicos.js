@@ -4,7 +4,11 @@ module.exports.listarServicosAdmin = function(application, req, res){
 
     servicosModel.pegarServicos(req.session.idCliente, function(error, result){
         if(result){
-            res.render('servicos/gerenciar-servicos-cliente', {servicos: result});
+            if(req.session.tipo == 2){
+                res.render('servicos/gerenciar-servicos-cliente', {servicos: result, admin: 0});
+            }else{
+                res.render('servicos/gerenciar-servicos-cliente', {servicos: result, admin: 1});
+            }
         }
     });
 }
@@ -46,7 +50,11 @@ module.exports.servico = function(application, req, res){
 
     servicosModel.pegarServicosPeloIdProjeto(idProjeto.projeto, function(error, result){
         if(result){
-            res.render('servicos/gerenciar-servicos-cliente', {servicos: result});
+            if(req.session.idUsuario == 3){
+                res.render('servicos/gerenciar-servicos-cliente', {servicos: result});
+            }else{
+                res.render('servicos/gerenciar-servicos', {servicos: result});
+            }
         }
     });
 }
@@ -66,16 +74,23 @@ module.exports.iniciarServico = function(application, req, res){
     var connection = application.config.dbConnection();
     var servicosModel = new application.app.models.ServicosDAO(connection);
 
-    servicosModel.iniciarServico(req.session.idUsuario, req.body.idServico, function(error, result){
-        res.send({"concluido":"1"});
+    servicosModel.pegarServicosPeloIdServico(req.body.idServico, function(error, result){
+        if(result[0].id_responsavel == null){
+            servicosModel.iniciarServico(req.session.idUsuario, req.body.idServico, function(error, result){
+                res.send({"concluido":"1"});
+            });
+        }else{
+            res.send({"concluido":"2"});
+        }
     });
+    
 }
 
 module.exports.aprovarServico = function(application, req, res){
     var connection = application.config.dbConnection();
     var servicosModel = new application.app.models.ServicosDAO(connection);
 
-    servicosModel.aprovarServico(req.body.idServico, 0, function(error, result){
+    servicosModel.aprovarServico(req.body.idServico, function(error, result){
         res.send({"concluido":"1"});
     });
 }
@@ -85,6 +100,15 @@ module.exports.mandarParaAprovacao = function(application, req, res){
     var servicosModel = new application.app.models.ServicosDAO(connection);
 
     servicosModel.editarServico(req.body.idServico, 4, function(error, result){
+        res.send({"concluido":"1"});
+    });
+}
+
+module.exports.reprovarServico = function(application, req, res){
+    var connection = application.config.dbConnection();
+    var servicosModel = new application.app.models.ServicosDAO(connection);
+    
+    servicosModel.reprovarServico(req.body.idServico, req.body.novaObservacao, function(error, result){
         res.send({"concluido":"1"});
     });
 }

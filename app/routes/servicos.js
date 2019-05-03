@@ -18,8 +18,19 @@ module.exports = function(application){
 		}
 	});
 
+	application.get('/servicosCliente', function(req, res){
+		if(req.session.logado == true){
+			if(req.session.tipo == 2)
+				application.app.controllers.servicos.listarServicosAdmin(application, req, res);
+			else
+				application.app.controllers.geral.verificacaoTipoUsuarioServico(application, req, res, req.session.tipo);
+		}else{
+			res.redirect('/');
+		}
+	})
+
 	application.get('/novoServico', function(req, res){
-		if(req.session.logado == true && req.session.tipo == 3){			
+		if(req.session.logado == true && (req.session.tipo == 3 || req.session.tipo == 2)){			
 			application.app.controllers.servicos.novoServico(application, req, res);
 		}else{
 			res.redirect('/');
@@ -27,7 +38,11 @@ module.exports = function(application){
 	});
 
 	application.post('/criarNovoServico', function(req, res){
-		application.app.controllers.servicos.criarNovoServico(application, req, res);
+		if(req.session.logado == true && (req.session.tipo == 3 || req.session.tipo == 2))
+			application.app.controllers.servicos.criarNovoServico(application, req, res);
+
+		else
+			res.redirect('/');
 	})
 
 	application.get('/servico', function(req, res){
@@ -58,7 +73,7 @@ module.exports = function(application){
 
 	application.post('/aprovarServico', function(req, res){
 		if(req.session.logado == true){
-			if(req.session.tipo == 3)
+			if(req.session.tipo == 3 || req.session.tipo == 2)
 				application.app.controllers.servicos.aprovarServico(application, req, res);
 			else
 				application.app.controllers.geral.verificacaoTipoUsuarioServico(application, req, res, req.session.tipo);
@@ -71,6 +86,17 @@ module.exports = function(application){
 		if(req.session.logado == true){
 			if(req.session.tipo == 1)
 				application.app.controllers.servicos.mandarParaAprovacao(application, req, res);
+			else
+				application.app.controllers.geral.verificacaoTipoUsuarioServico(application, req, res, req.session.tipo);
+		}else{
+			res.redirect('/');
+		}
+	})
+
+	application.post('/reprovarServico', function(req, res){
+		if(req.session.logado == true){
+			if(req.session.tipo == 3 || req.session.tipo == 2)
+				application.app.controllers.servicos.reprovarServico(application, req, res);
 			else
 				application.app.controllers.geral.verificacaoTipoUsuarioServico(application, req, res, req.session.tipo);
 		}else{
