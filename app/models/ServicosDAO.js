@@ -7,7 +7,7 @@ ServicosDAO.prototype.pegarServicos = function(idCliente, callback){
 }
 
 ServicosDAO.prototype.pegarServicosPeloIdProjeto = function(idProjeto, callback){
-	this._connection.query('SELECT id_servico, data_solicitacao, data_termino, observacao, servico.status as statusServico, projeto.nome as nomeProjeto FROM servico JOIN projeto USING (id_projeto) WHERE projeto.id_projeto = ? AND projeto.status <> 50', idProjeto, callback);
+	this._connection.query('SELECT usuarios.nome as nomeResponsavel, id_responsavel, id_servico, data_solicitacao, data_termino, observacao, servico.status as statusServico, projeto.nome as nomeProjeto FROM servico JOIN projeto USING (id_projeto) LEFT JOIN usuario ON servico.id_responsavel = usuario.id_usuario WHERE projeto.id_projeto = ? AND projeto.status <> 50 ORDER BY id_servico DESC', idProjeto, callback);
 }
 
 ServicosDAO.prototype.pegarServicosPeloIdServico = function(idServico, callback){

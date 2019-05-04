@@ -3,12 +3,10 @@ module.exports.listarServicosAdmin = function(application, req, res){
     var servicosModel = new application.app.models.ServicosDAO(connection);
 
     servicosModel.pegarServicos(req.session.idCliente, function(error, result){
-        if(result){
-            if(req.session.tipo == 2){
-                res.render('servicos/gerenciar-servicos-cliente', {servicos: result, admin: 0});
-            }else{
-                res.render('servicos/gerenciar-servicos-cliente', {servicos: result, admin: 1});
-            }
+        if(req.session.tipo == 2){
+            res.render('servicos/gerenciar-servicos-cliente', {servicos: result, admin: 0});
+        }else{
+            res.render('servicos/gerenciar-servicos-cliente', {servicos: result, admin: 1});
         }
     });
 }
@@ -18,9 +16,7 @@ module.exports.novoServico = function(application, req, res){
     var projetosModel = new application.app.models.ProjetosDAO(connection);
 
     projetosModel.pegarProjetos(req.session.idCliente, function(error, result){
-        if(result){
-            res.render('servicos/formulario-criar-servico', {projetos: result});
-        }
+        res.render('servicos/formulario-criar-servico', {projetos: result});
     });
 }
 
@@ -49,12 +45,10 @@ module.exports.servico = function(application, req, res){
     var servicosModel = new application.app.models.ServicosDAO(connection);
 
     servicosModel.pegarServicosPeloIdProjeto(idProjeto.projeto, function(error, result){
-        if(result){
-            if(req.session.idUsuario == 3){
-                res.render('servicos/gerenciar-servicos-cliente', {servicos: result});
-            }else{
-                res.render('servicos/gerenciar-servicos', {servicos: result});
-            }
+        if(req.session.idUsuario == 3){
+            res.render('servicos/gerenciar-servicos-cliente', {servicos: result});
+        }else{
+            res.render('servicos/gerenciar-servicos', {servicos: result});
         }
     });
 }
@@ -64,9 +58,7 @@ module.exports.listarServicosDev = function(application, req, res){
     var servicosModel = new application.app.models.ServicosDAO(connection);
 
     servicosModel.pegarTodosServicos(function(error, result){
-        if(result){
-            res.render('servicos/gerenciar-servicos', {servicos: result, idUsuario : req.session.idUsuario});
-        }
+        res.render('servicos/gerenciar-servicos', {servicos: result, idUsuario : req.session.idUsuario});
     });
 }
 

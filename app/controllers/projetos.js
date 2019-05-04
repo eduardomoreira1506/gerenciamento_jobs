@@ -3,9 +3,7 @@ module.exports.listarProjetosAdmin = function(application, req, res){
     var projetosModel = new application.app.models.ProjetosDAO(connection);
 
     projetosModel.pegarProjetos(req.session.idCliente, function(error, result){
-    	if(result){
-    		res.render('projetos/gerenciar-projetos-cliente', {projetos: result});
-    	}
+      res.render('projetos/gerenciar-projetos-cliente', {projetos: result});
     });
 }
 
@@ -14,9 +12,7 @@ module.exports.listarProjetosDev = function(application, req, res){
     var projetosModel = new application.app.models.ProjetosDAO(connection);
 
     projetosModel.pegarTodosProjetos(function(error, result){
-        if(result){
-            res.render('projetos/gerenciar-projetos', {projetos: result});
-        }
+        res.render('projetos/gerenciar-projetos', {projetos: result});        
     });
 }
 
@@ -58,8 +54,6 @@ module.exports.listarServicosDoProjeto = function(application, req, res){
     var servicosModel = new application.app.models.ServicosDAO(connection);
 
     servicosModel.pegarServicosPeloIdProjeto(projeto.id_projeto, function(error, result){
-        if(result){
-            res.render('servicos/gerenciar-servicos', {servicos: result});
-        }
+        res.render('servicos/gerenciar-servicos', {servicos: result, idUsuario : req.session.idUsuario});
     });
 }

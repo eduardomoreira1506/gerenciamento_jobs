@@ -1,11 +1,9 @@
-module.exports.listarClientes = function(application, req, res){
+module.exports.listarClientes = function(application, res, res){
 	var connection = application.config.dbConnection();
     var clientesModel = new application.app.models.ClientesDAO(connection);
 
     clientesModel.listarClientes(function(error, result){
-        if(result){
-            res.render('clientes/gerenciar-clientes', {clientes: result});
-        }
+        res.render('clientes/gerenciar-clientes', {clientes: result});
     });
 }
 
@@ -49,8 +47,6 @@ module.exports.cliente = function(application, req, res){
     var servicosModel = new application.app.models.ServicosDAO(connection);
 
     servicosModel.pegarServicosPeloIdCliente(cliente.id_cliente, function(error, result){
-        if(result){
-            res.render('servicos/gerenciar-servicos', {servicos: result});
-        }
+        res.render('servicos/gerenciar-servicos', {servicos: result, idUsuario : req.session.idUsuario});
     });
 }
