@@ -30,6 +30,18 @@ ClientesDAO.prototype.editarCliente = function(idCliente, ativo, callback){
 	this._connection.query('UPDATE cliente SET ativo = ? WHERE id_cliente = ?', [ativo, idCliente], callback);
 }
 
+ClientesDAO.prototype.listarClientesFiltrados = function(status ,callback){
+	this._connection.query('SELECT * FROM cliente WHERE ativo = ?', status, callback);
+}
+
+ClientesDAO.prototype.pegarCliente = function(idCliente, callback){
+	this._connection.query('SELECT * FROM cliente WHERE id_cliente = ?', idCliente, callback);
+}
+
+ClientesDAO.prototype.editarInformacoesEmpresa = function(idCliente, nome, cpf_cnpj, chave, callback){
+	this._connection.query('UPDATE cliente SET nome = ?, cpf_cnpj = ?, chave = ? WHERE id_cliente = ?', [nome, cpf_cnpj, chave, idCliente], callback);
+}
+
 module.exports = function(){
 	return ClientesDAO;
 }

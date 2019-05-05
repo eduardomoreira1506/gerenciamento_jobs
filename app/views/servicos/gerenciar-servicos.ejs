@@ -4,6 +4,14 @@
 	<div class="main-content">
 		<div class="section__content section__content--p30">
 			<div class="container-fluid">
+				<div class="margemSelect">
+					<select class="filtroSelect centroSelect" name="property" tabindex="-1" aria-hidden="true" id="filtroSelect">
+						<option value="">Todos</option>
+						<option value="1">Meus serviços</option>
+						<option value="2">Aguardando início</option>
+						<option value="3">Concluídos</option>
+					</select>
+				</div>
 				<div class="row">
 				<% for(var i = 0; i < servicos.length; i++){ %>
 					<% 
@@ -89,5 +97,6 @@
 	}
 %>
 <script src="assets/js/servicos/funcoes.js"></script>
+<script src="assets/js/servicos/servicos.js"></script>
 </body>
 </html>

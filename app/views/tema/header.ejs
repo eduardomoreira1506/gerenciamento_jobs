@@ -4,7 +4,7 @@
 	<title>Gerenciamento de Serviços</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
-
+    <link rel="icon" href="assets/img/favicon.png" />
 	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
 	<link href="assets/css/font-face.css" rel="stylesheet" media="all">
 	<link href="assets/css/theme.css" rel="stylesheet" media="all">
@@ -34,5 +34,12 @@
     <script src="vendor/wow/wow.min.js"></script>
     <script src="assets/js/main.js"></script>
     <script src="assets/js/geral/geral.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="assets/js/socket.js"></script>
+    <script>
+        var idUsuario = <%= idUsuario %>
+        var socket = io.connect('http://localhost:400');
+        socket.emit('entrarNoServidor', {idUsuario: idUsuario});
+    </script>
 </head>
 	

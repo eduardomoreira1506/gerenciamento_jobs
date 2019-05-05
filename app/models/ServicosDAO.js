@@ -7,7 +7,7 @@ ServicosDAO.prototype.pegarServicos = function(idCliente, callback){
 }
 
 ServicosDAO.prototype.pegarServicosPeloIdProjeto = function(idProjeto, callback){
-	this._connection.query('SELECT usuarios.nome as nomeResponsavel, id_responsavel, id_servico, data_solicitacao, data_termino, observacao, servico.status as statusServico, projeto.nome as nomeProjeto FROM servico JOIN projeto USING (id_projeto) LEFT JOIN usuario ON servico.id_responsavel = usuario.id_usuario WHERE projeto.id_projeto = ? AND projeto.status <> 50 ORDER BY id_servico DESC', idProjeto, callback);
+	this._connection.query('SELECT projeto.id_cliente,usuario.nome as nomeResponsavel, id_responsavel, id_servico, data_solicitacao, data_termino, observacao, servico.status as statusServico, projeto.nome as nomeProjeto FROM servico JOIN projeto USING (id_projeto) LEFT JOIN usuario ON servico.id_responsavel = usuario.id_usuario WHERE projeto.id_projeto = ? AND projeto.status <> 50 ORDER BY id_servico DESC', idProjeto, callback);
 }
 
 ServicosDAO.prototype.pegarServicosPeloIdServico = function(idServico, callback){
@@ -15,7 +15,7 @@ ServicosDAO.prototype.pegarServicosPeloIdServico = function(idServico, callback)
 }
 
 ServicosDAO.prototype.pegarServicosPeloIdCliente = function(idCliente, callback){
-	this._connection.query('SELECT id_servico, data_solicitacao, data_termino, observacao, servico.status as statusServico, projeto.nome as nomeProjeto FROM servico JOIN projeto USING (id_projeto) WHERE projeto.id_cliente = ? AND projeto.status <> 50', idCliente, callback);
+	this._connection.query('SELECT usuario.nome as nomeResponsavel, id_servico, data_solicitacao, data_termino, observacao, servico.status as statusServico, projeto.nome as nomeProjeto FROM servico JOIN projeto USING (id_projeto) LEFT JOIN usuario ON servico.id_responsavel = usuario.id_usuario WHERE projeto.id_cliente = ? AND projeto.status <> 50 ORDER BY id_servico DESC', idCliente, callback);
 }
 
 ServicosDAO.prototype.pegarTodosServicos = function(callback){
@@ -39,7 +39,7 @@ ServicosDAO.prototype.editarServico = function(idServico, statusServico, callbac
 }
 
 ServicosDAO.prototype.reprovarServico = function(idServico, novaObservacao, callback){
-	this._connection.query("UPDATE servico SET status = 1, observacao = CONCAT((SELECT observacao FROM (SELECT * FROM servico) AS s1 WHERE id_servico = ?), '<br />', ?) WHERE id_servico = ?", [idServico, novaObservacao, idServico], callback);
+	this._connection.query("UPDATE servico SET id_responsavel = null, status = 1, observacao = CONCAT((SELECT observacao FROM (SELECT * FROM servico) AS s1 WHERE id_servico = ?), '<br />', ?) WHERE id_servico = ?", [idServico, novaObservacao, idServico], callback);
 }
 
 ServicosDAO.prototype.contarTodosServicos = function(callback){
@@ -88,6 +88,38 @@ ServicosDAO.prototype.contarServicos7DiasAdmin = function(idCliente, callback){
 
 ServicosDAO.prototype.contarServicosRealizados7diasAdmin = function(idCliente, callback){
 	this._connection.query('SELECT COUNT(id_servico) as servicosRealizados7Dias FROM servico JOIN projeto ON servico.id_projeto = projeto.id_projeto WHERE data_solicitacao BETWEEN CURDATE() - INTERVAL 7 DAY AND CURDATE() AND servico.status = 0 AND id_cliente = ?',idCliente, callback);
+}
+
+ServicosDAO.prototype.servicosFiltrados = function(status, idUsuario, callback){
+	if(status == 1){
+		var where = `id_responsavel = ${idUsuario}`;
+	}
+
+	if(status == 2){
+		var where = 'servico.status = 1';
+	}
+
+	if(status == 3){
+		var where = 'servico.status = 0';
+	}
+
+	this._connection.query('SELECT usuario.nome as nomeResponsavel, id_responsavel, id_servico, data_solicitacao, data_termino, observacao, servico.status as statusServico, projeto.nome as nomeProjeto FROM servico JOIN projeto USING (id_projeto) LEFT JOIN usuario ON servico.id_responsavel = usuario.id_usuario WHERE projeto.status <> 50 AND ' + where + ' ORDER BY id_servico DESC', callback);
+}
+
+ServicosDAO.prototype.servicosFiltradosCliente = function(status, idCliente, callback){
+	if(status == 2){
+		var where = 'servico.status = 1';
+	}
+
+	if(status == 3){
+		var where = 'servico.status = 0';
+	}
+
+	if(status == 4){
+		var where = 'servico.status = 4';
+	}
+
+	this._connection.query('SELECT id_servico, data_solicitacao, data_termino, observacao, servico.status as statusServico, projeto.nome as nomeProjeto FROM servico JOIN projeto USING (id_projeto) WHERE id_cliente = ? AND projeto.status <> 50 AND ' + where + ' ORDER BY id_servico DESC', idCliente, callback);
 }
 
 module.exports = function(){

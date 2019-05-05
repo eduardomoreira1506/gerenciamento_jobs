@@ -11,7 +11,7 @@ module.exports.iniciarPainel = function(application, req, res){
                         servicosModel.contarServicosRealizados30diasAdmin(req.session.idCliente, function(error, servicosRealizados30Dias){
                             servicosModel.contarServicos7DiasAdmin(req.session.idCliente, function(error, servicos7Dias){
                                 servicosModel.contarServicosRealizados7diasAdmin(req.session.idCliente, function(error, servicosRealizados7Dias){
-                                    var json = {nome: req.session.nome};
+                                    var json = {nome: req.session.nome, idUsuario: req.session.idUsuario};
                                     json = application.app.controllers.geral.validarTamanhoJson(json, todosProjetos, 'todosProjetos');
                                     json = application.app.controllers.geral.validarTamanhoJson(json, projetosAtivos, 'projetosAtivos');
                                     json = application.app.controllers.geral.validarTamanhoJson(json, todosServicos, 'todosServicos');
@@ -50,7 +50,7 @@ module.exports.iniciarPainelDev = function(application, req, res){
         								servicosModel.contarServicosRealizados30dias(function(error, servicosRealizados30Dias){
         									servicosModel.contarServicos7Dias(function(error, servicos7Dias){
         										servicosModel.contarServicosRealizados7dias(function(error, servicosRealizados7Dias){
-                                                    var json = {nome: req.session.nome};
+                                                    var json = {nome: req.session.nome, idUsuario: req.session.idUsuario};
                                                     json = application.app.controllers.geral.validarTamanhoJson(json, todosClientes, 'todosClientes');
                                                     json = application.app.controllers.geral.validarTamanhoJson(json, clientesAtivos, 'clientesAtivos');
                                                     json = application.app.controllers.geral.validarTamanhoJson(json, todosProjetos, 'todosProjetos');
@@ -91,7 +91,7 @@ module.exports.iniciarPainelCliente = function(application, req, res){
                         servicosModel.contarServicosRealizados30diasAdmin(req.session.idCliente, function(error, servicosRealizados30Dias){
                             servicosModel.contarServicos7DiasAdmin(req.session.idCliente, function(error, servicos7Dias){
                                 servicosModel.contarServicosRealizados7diasAdmin(req.session.idCliente, function(error, servicosRealizados7Dias){
-                                    var json = {nome: req.session.nome};
+                                    var json = {nome: req.session.nome, idUsuario: req.session.idUsuario};
                                     json = application.app.controllers.geral.validarTamanhoJson(json, todosProjetos, 'todosProjetos');
                                     json = application.app.controllers.geral.validarTamanhoJson(json, projetosAtivos, 'projetosAtivos');
                                     json = application.app.controllers.geral.validarTamanhoJson(json, todosServicos, 'todosServicos');

@@ -1,14 +1,14 @@
-module.exports.listarClientes = function(application, res, res){
+module.exports.listarClientes = function(application, req, res){
 	var connection = application.config.dbConnection();
     var clientesModel = new application.app.models.ClientesDAO(connection);
 
     clientesModel.listarClientes(function(error, result){
-        res.render('clientes/gerenciar-clientes', {clientes: result});
+        res.render('clientes/gerenciar-clientes', {clientes: result, idUsuario: req.session.idUsuario});
     });
 }
 
 module.exports.novoCliente = function(application, req, res){
-	res.render('clientes/formulario-criar-cliente');
+	res.render('clientes/formulario-criar-cliente', {idUsuario: req.session.idUsuario});
 }
 
 module.exports.criarNovoCliente = function(application, req, res){
@@ -49,4 +49,40 @@ module.exports.cliente = function(application, req, res){
     servicosModel.pegarServicosPeloIdCliente(cliente.id_cliente, function(error, result){
         res.render('servicos/gerenciar-servicos', {servicos: result, idUsuario : req.session.idUsuario});
     });
+}
+
+module.exports.clientesFiltrados = function(application, req, res){
+    var connection = application.config.dbConnection();
+    var clientesModel = new application.app.models.ClientesDAO(connection);
+
+    clientesModel.listarClientesFiltrados(req.body.status ,function(error, result){
+        res.send(result);
+    });
+}
+
+module.exports.todosClientes = function(application, req, res){
+    var connection = application.config.dbConnection();
+    var clientesModel = new application.app.models.ClientesDAO(connection);
+
+    clientesModel.listarClientes(function(error, result){
+        res.send(result);
+    });
+}
+
+module.exports.editarEmpresa = function(application, req, res){
+    var connection = application.config.dbConnection();
+    var clientesModel = new application.app.models.ClientesDAO(connection);
+
+    clientesModel.pegarCliente(req.session.idCliente ,function(error, result){
+        res.render('clientes/editar-empresa', {dados: result[0], idUsuario: req.session.idUsuario});
+    });
+}
+
+module.exports.editarInformacoesEmpresa = function(application, req, res){
+    var connection = application.config.dbConnection();
+    var clientesModel = new application.app.models.ClientesDAO(connection);
+
+    clientesModel.editarInformacoesEmpresa(req.session.idCliente, req.body.nome, req.body.cpf_cnpj, req.body.chave, function(error, result){
+        res.send({"concluido":"1"});
+    })
 }

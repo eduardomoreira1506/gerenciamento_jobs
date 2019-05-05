@@ -3,7 +3,7 @@ module.exports.listarProjetosAdmin = function(application, req, res){
     var projetosModel = new application.app.models.ProjetosDAO(connection);
 
     projetosModel.pegarProjetos(req.session.idCliente, function(error, result){
-      res.render('projetos/gerenciar-projetos-cliente', {projetos: result});
+      res.render('projetos/gerenciar-projetos-cliente', {projetos: result, idUsuario: req.session.idUsuario});
     });
 }
 
@@ -12,7 +12,7 @@ module.exports.listarProjetosDev = function(application, req, res){
     var projetosModel = new application.app.models.ProjetosDAO(connection);
 
     projetosModel.pegarTodosProjetos(function(error, result){
-        res.render('projetos/gerenciar-projetos', {projetos: result});        
+        res.render('projetos/gerenciar-projetos', {projetos: result, idUsuario: req.session.idUsuario});        
     });
 }
 

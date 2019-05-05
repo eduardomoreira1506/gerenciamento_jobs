@@ -46,7 +46,10 @@ module.exports = function(application){
 	})
 
 	application.get('/servico', function(req, res){
-		application.app.controllers.servicos.servico(application, req, res);
+		if(req.session.logado == true)
+			application.app.controllers.servicos.servico(application, req, res);
+		else
+			res.redirect('/')
 	});
 
 	application.get('/servicosDev', function(req, res){
@@ -99,6 +102,30 @@ module.exports = function(application){
 				application.app.controllers.servicos.reprovarServico(application, req, res);
 			else
 				application.app.controllers.geral.verificacaoTipoUsuarioServico(application, req, res, req.session.tipo);
+		}else{
+			res.redirect('/');
+		}
+	})
+
+	application.post('/todosServicos', function(req, res){
+		if(req.session.logado == true){
+			if(req.session.tipo == 1)
+				application.app.controllers.servicos.todosServicos(application, req, res);
+
+			else
+				application.app.controllers.servicos.todosServicosCliente(application, req, res);
+		}else{
+			res.redirect('/');
+		}
+	});
+
+	application.post('/servicosFiltrados', function(req, res){
+		if(req.session.logado == true){
+			if(req.session.tipo == 1)
+				application.app.controllers.servicos.servicosFiltrados(application, req, res);
+
+			else
+				application.app.controllers.servicos.servicosFiltradosCliente(application, req, res);
 		}else{
 			res.redirect('/');
 		}

@@ -35,6 +35,7 @@ module.exports.autenticar = function(application, req, res){
                         req.session.tipo = result[0].tipo;
                         req.session.idUsuario = result[0].id_usuario;
                         req.session.idCliente = result[0].id_cliente;
+                        req.session.email = result[0].email;
 
                         application.app.controllers.geral.verificacaoTipoUsuario(application, req, res, result[0].tipo);
                         break;

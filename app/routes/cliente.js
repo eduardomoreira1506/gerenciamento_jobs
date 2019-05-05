@@ -54,4 +54,36 @@ module.exports = function(application){
 		else
 			res.redirect('/');
 	})
+
+	application.post('/clientesFiltrados', function(req, res){
+		if(req.session.logado == true && req.session.tipo == 1)
+			application.app.controllers.clientes.clientesFiltrados(application, req, res);
+
+		else
+			res.redirect('/');
+	})
+
+	application.post('/todosClientes', function(req, res){
+		if(req.session.logado == true && req.session.tipo == 1)
+			application.app.controllers.clientes.todosClientes(application, req, res);
+
+		else
+			res.redirect('/');
+	})
+
+	application.get('/editarEmpresa', function(req, res){
+		if(req.session.logado == true && req.session.tipo == 3)
+			application.app.controllers.clientes.editarEmpresa(application, req, res);
+
+		else
+			res.redirect('/');
+	})
+
+	application.post('/editarEmpresa', function(req, res){
+		if(req.session.logado == true && req.session.tipo == 3)
+			application.app.controllers.clientes.editarInformacoesEmpresa(application, req, res);
+
+		else
+			res.redirect('/');
+	})
 }

@@ -47,6 +47,7 @@ function aprovarServico(idServico){
 				success: function(data){
 					console.log(data);
 					if(data.concluido == 1){
+						socket.emit('aprovarServico',	{idServico: idServico});
 						window.location.href = "/servicos";
 					}
 				}
@@ -80,6 +81,7 @@ function reprovarServico(idServico){
 						data: {idServico: idServico, novaObservacao: result.value},
 						success: function(data){
 							if(data.concluido == 1){
+								socket.emit('reprovarServico',	{idServico: idServico});
 								window.location.href = "/servicos";
 							}
 						}
@@ -106,8 +108,10 @@ function mandarParaAprovacao(idServico){
 				data: {idServico: idServico},
 				success: function(data){
 					if(data.concluido == 1){
+						socket.emit('aprovacaoServico',	{idServico: idServico});
 						window.location.href = "/servicos";
 					}
+
 				}
 			});
 		}

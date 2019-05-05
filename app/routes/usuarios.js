@@ -79,4 +79,36 @@ module.exports = function(application){
 		else
 			res.redirect('/');
 	})
+
+	application.get('/editarPerfil', function(req, res){
+		if(req.session.logado == true)
+			application.app.controllers.usuarios.editarPerfil(application, req, res);
+
+		else
+			res.redirect('/');
+	})
+
+	application.post('/editarPerfil', function(req, res){
+		if(req.session.logado == true)
+			application.app.controllers.usuarios.editarInformacoesPerfil(application, req, res);
+
+		else
+			req.redirect('/');
+	});
+
+	application.post('/verificarSenhaAntiga', function(req, res){
+		if(req.session.logado == true)
+			application.app.controllers.usuarios.verificarSenhaAntiga(application, req, res)
+
+		else
+			res.redirect('/');
+	})
+
+	application.post('/alterarSenha', function(req, res){
+		if(req.session.logado == true)
+			application.app.controllers.usuarios.alterarSenha(application, req, res)
+
+		else
+			res.redirect('/');
+	});
 }
