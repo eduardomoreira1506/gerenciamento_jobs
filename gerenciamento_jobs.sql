@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 03-Maio-2019 às 21:54
+-- Generation Time: 05-Maio-2019 às 20:46
 -- Versão do servidor: 10.1.37-MariaDB
 -- versão do PHP: 5.6.40
 
@@ -49,6 +49,29 @@ INSERT INTO `cliente` (`id_cliente`, `nome`, `cpf_cnpj`, `chave`, `caminho_logo`
 (5, 'Testeee criandoooo', '123456789', 'dsadqsrqsq', NULL, 50),
 (6, 'Transmeet', '123456789', '8090', NULL, 50),
 (7, 'Transmeet M2M', '1245567897', 'transmeet_2019', NULL, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `notificacoes`
+--
+
+CREATE TABLE `notificacoes` (
+  `id_notificacao` int(11) NOT NULL,
+  `id_cliente` int(11) NOT NULL,
+  `visualizada` int(11) DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `notificacoes`
+--
+
+INSERT INTO `notificacoes` (`id_notificacao`, `id_cliente`, `visualizada`) VALUES
+(1, 7, 1),
+(2, 7, 1),
+(3, 7, 1),
+(4, 7, 1),
+(5, 7, 1);
 
 -- --------------------------------------------------------
 
@@ -132,7 +155,11 @@ INSERT INTO `servico` (`id_servico`, `id_projeto`, `data_solicitacao`, `data_ter
 (15, 27, '2019-05-01 22:37:49', '2019-05-01 22:38:17', 'Precisamos corrigir bugs aqui!<br />Po cara, arruma direito ai!', 0, 6),
 (16, 28, '2019-05-01 22:51:34', '2019-05-01 22:53:11', 'Página está com qdnasodnaodsnao<br />Foi reprovado pdosamdamnodanmo', 0, 6),
 (17, 28, '2019-05-03 16:42:17', '2019-05-03 16:43:01', 'Não está funcionandoooo', 0, 6),
-(18, 28, '2019-05-03 16:48:39', NULL, 'qqq', 3, 18);
+(18, 28, '2019-05-03 16:48:39', NULL, 'qqq<br />dsa', 1, NULL),
+(19, 28, '2019-05-04 18:31:50', NULL, 'Por favor arruma ai mano!!!!<br />ta tudo errado!!!', 1, 6),
+(20, 28, '2019-05-04 18:35:34', '2019-05-04 18:36:53', 'dsadsa<br />dsqdqdqdqdq', 0, 6),
+(21, 28, '2019-05-05 13:03:42', '2019-05-05 14:57:46', 'dsaaaaaaaaaaaaaaaa', 0, 6),
+(22, 28, '2019-05-05 13:06:22', '2019-05-05 15:06:56', 'dsadsadsasddsa<br />dsadsadsa<br />dsa<br />dsadsadsa<br />dsadadadsa<br />dsadsadsa<br />iibvibi<br />hiklbiubo<br />çklnib<br />dsadsad<br />dqdsqrqsfdq<br />dsqdqdsq<br />sdqsdq qf qs<br />fq fqr qs<br />fq sqr qdfq<br />dsq dqdq<br />fasd fa<br />fqs ', 0, 6);
 
 -- --------------------------------------------------------
 
@@ -157,7 +184,7 @@ CREATE TABLE `usuario` (
 INSERT INTO `usuario` (`id_usuario`, `nome`, `email`, `senha`, `tipo`, `aprovado`, `id_cliente`) VALUES
 (3, 'Eduardo Moreira', 'contato@eduardoem.com.br', '4badaee57fed5610012a296273158f5f', 3, 50, 1),
 (4, 'Eduardo Moreira 2', 'dev.eduardomoreira1506@gmail.com', '4badaee57fed5610012a296273158f5f', 3, 50, 3),
-(6, 'Eduardo Dev', 'eduardo@onlysat.com', '4badaee57fed5610012a296273158f5f', 1, 1, NULL),
+(6, 'Eduardo', 'eduardo@onlysat.com', '4badaee57fed5610012a296273158f5f', 1, 1, NULL),
 (7, 'Eduardo', 'teste@teste.com.br', '4badaee57fed5610012a296273158f5f', 3, 50, 1),
 (8, 'Edu cliente gerencia', 'edu@gerencia.com', '4badaee57fed5610012a296273158f5f', 3, 50, 1),
 (9, 'dsada', 'dasdsa', '4badaee57fed5610012a296273158f5f', 3, 50, 1),
@@ -182,6 +209,13 @@ INSERT INTO `usuario` (`id_usuario`, `nome`, `email`, `senha`, `tipo`, `aprovado
 --
 ALTER TABLE `cliente`
   ADD PRIMARY KEY (`id_cliente`);
+
+--
+-- Indexes for table `notificacoes`
+--
+ALTER TABLE `notificacoes`
+  ADD PRIMARY KEY (`id_notificacao`),
+  ADD KEY `id_cliente` (`id_cliente`);
 
 --
 -- Indexes for table `projeto`
@@ -216,6 +250,12 @@ ALTER TABLE `cliente`
   MODIFY `id_cliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
+-- AUTO_INCREMENT for table `notificacoes`
+--
+ALTER TABLE `notificacoes`
+  MODIFY `id_notificacao` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
 -- AUTO_INCREMENT for table `projeto`
 --
 ALTER TABLE `projeto`
@@ -225,7 +265,7 @@ ALTER TABLE `projeto`
 -- AUTO_INCREMENT for table `servico`
 --
 ALTER TABLE `servico`
-  MODIFY `id_servico` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id_servico` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `usuario`
@@ -236,6 +276,12 @@ ALTER TABLE `usuario`
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Limitadores para a tabela `notificacoes`
+--
+ALTER TABLE `notificacoes`
+  ADD CONSTRAINT `notificacoes_ibfk_1` FOREIGN KEY (`id_cliente`) REFERENCES `cliente` (`id_cliente`);
 
 --
 -- Limitadores para a tabela `projeto`
